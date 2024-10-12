@@ -1,6 +1,10 @@
-[gd_scene load_steps=39 format=3 uid="uid://spmyk4w0s5ng"]
+[gd_scene load_steps=44 format=3 uid="uid://spmyk4w0s5ng"]
 
 [ext_resource type="Texture2D" uid="uid://cy5loo0k288a4" path="res://assets/placeholder_mystic_woods/sprites/characters/player.png" id="1_fu4sn"]
+[ext_resource type="Script" path="res://Nodes/Characters/MainChar/MainCharBase.gd.gd" id="1_qaomf"]
+[ext_resource type="Script" path="res://Nodes/StateMachine/state_machine.gd" id="2_2ryqt"]
+[ext_resource type="Script" path="res://Nodes/Characters/MainChar/States/walking.gd" id="3_4j4jn"]
+[ext_resource type="Script" path="res://Nodes/Characters/MainChar/States/idle.gd" id="4_r6dv3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_owb8e"]
 atlas = ExtResource("1_fu4sn")
@@ -287,8 +291,25 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="MainCharBase" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_4g40k"]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="MainCharBase" type="CharacterBody2D"]
+script = ExtResource("1_qaomf")
+
+[node name="SpriteAnimations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5opff")
 animation = &"back_idle"
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_2ryqt")
+
+[node name="walking" type="Node" parent="StateMachine"]
+script = ExtResource("3_4j4jn")
+
+[node name="idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_r6dv3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4g40k")
