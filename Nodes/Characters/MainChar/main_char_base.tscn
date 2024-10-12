@@ -1,7 +1,7 @@
 [gd_scene load_steps=44 format=3 uid="uid://spmyk4w0s5ng"]
 
 [ext_resource type="Texture2D" uid="uid://cy5loo0k288a4" path="res://assets/placeholder_mystic_woods/sprites/characters/player.png" id="1_fu4sn"]
-[ext_resource type="Script" path="res://Nodes/Characters/MainChar/MainCharBase.gd.gd" id="1_qaomf"]
+[ext_resource type="Script" path="res://Nodes/Characters/MainChar/MainCharBase.gd" id="1_qaomf"]
 [ext_resource type="Script" path="res://Nodes/StateMachine/state_machine.gd" id="2_2ryqt"]
 [ext_resource type="Script" path="res://Nodes/Characters/MainChar/States/walking.gd" id="3_4j4jn"]
 [ext_resource type="Script" path="res://Nodes/Characters/MainChar/States/idle.gd" id="4_r6dv3"]
@@ -299,17 +299,24 @@ script = ExtResource("1_qaomf")
 [node name="SpriteAnimations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5opff")
 animation = &"back_idle"
+autoplay = "back_idle"
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_2ryqt")
+initial_state = NodePath("idle")
 
-[node name="walking" type="Node" parent="StateMachine"]
+[node name="walking" type="Node" parent="StateMachine" node_paths=PackedStringArray("state_owner")]
 script = ExtResource("3_4j4jn")
+state_owner = NodePath("../..")
 
-[node name="idle" type="Node" parent="StateMachine"]
+[node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("state_owner")]
 script = ExtResource("4_r6dv3")
+state_owner = NodePath("../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4g40k")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
