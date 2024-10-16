@@ -295,6 +295,7 @@ animations = [{
 
 [node name="MainCharBase" type="CharacterBody2D"]
 script = ExtResource("1_qaomf")
+device = -1
 
 [node name="SpriteAnimations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5opff")

@@ -13,9 +13,9 @@ func choose_animation():
 		state_owner.sprite_animations.animation = "side_idle"
 
 func enter():
-	print("Entered idle state")
+	print_debug("Entered idle state")
 	choose_animation()
 
 func update(_delta: float):
-	if Input.get_vector("ui_left","ui_right","ui_up","ui_down"):
+	if MultiplayerInput.get_vector(state_owner.device, "movement_left","movement_right","movement_up","movement_down"):
 		emit_signal("Transitioned", self, "walking")
