@@ -7,4 +7,7 @@ var walking_direction = DIRECTIONS.DOWN
 
 
 func _process(delta: float):
+	if not sprite_animations.is_playing():
+		sprite_animations.play()
 	move_and_slide()
+	
