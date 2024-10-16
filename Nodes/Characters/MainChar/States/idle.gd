@@ -13,7 +13,7 @@ func choose_animation():
 		state_owner.sprite_animations.animation = "side_idle"
 
 func enter():
-	print("Entered idle state")
+	print_debug("Entered idle state")
 	choose_animation()
 
 func update(_delta: float):

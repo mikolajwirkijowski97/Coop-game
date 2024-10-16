@@ -2,7 +2,7 @@ extends State
 var walking_speed = 10
 
 func map_input_to_speed():
-	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_direction = MultiplayerInput.get_vector(state_owner.device, "ui_left", "ui_right", "ui_up", "ui_down")
 	state_owner.velocity = input_direction * walking_speed
 	if state_owner.velocity.x > 0:
 		state_owner.walking_direction = DIRECTIONS.RIGHT
@@ -36,4 +36,4 @@ func update(_delta: float):
 		emit_signal("Transitioned", self, "idle") 
 		
 func enter():
-	print("Entered walking state")
+	print_debug("Entered walking state")
