@@ -2,16 +2,21 @@ extends State
 var walking_speed = 10
 
 func map_input_to_speed():
-	var input_direction = MultiplayerInput.get_vector(state_owner.device, "ui_left", "ui_right", "ui_up", "ui_down")
+	var input_direction = MultiplayerInput.get_vector(state_owner.device, "movement_left", "movement_right", "movement_up", "movement_down")
 	state_owner.velocity = input_direction * walking_speed
-	if state_owner.velocity.x > 0:
-		state_owner.walking_direction = DIRECTIONS.RIGHT
-	if state_owner.velocity.x < 0:
-		state_owner.walking_direction = DIRECTIONS.LEFT
-	if state_owner.velocity.y < 0:
-		state_owner.walking_direction = DIRECTIONS.UP
-	if state_owner.velocity.y > 0:
-		state_owner.walking_direction = DIRECTIONS.DOWN
+	
+	if abs(state_owner.velocity.x) > abs(state_owner.velocity.y):
+		# If x component is dominant, determine direction along x axis
+		if state_owner.velocity.x > 0:
+			state_owner.walking_direction = DIRECTIONS.RIGHT
+		else:
+			state_owner.walking_direction = DIRECTIONS.LEFT
+	else:
+		# If y component is dominant, determine direction along y axis
+		if state_owner.velocity.y > 0:
+			state_owner.walking_direction = DIRECTIONS.DOWN
+		else:
+			state_owner.walking_direction = DIRECTIONS.UP
 
 func choose_animation():
 	var dir = state_owner.walking_direction
