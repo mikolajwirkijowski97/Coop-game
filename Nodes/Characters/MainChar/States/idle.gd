@@ -8,6 +8,7 @@ func choose_animation():
 	state_owner.sprite_animations.animation = "idle"
 
 func enter():
+	state_owner.gravity_applies = true
 	print_debug("Entered idle state")
 	choose_animation()
 
