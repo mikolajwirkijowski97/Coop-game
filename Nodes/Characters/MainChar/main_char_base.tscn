@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://spmyk4w0s5ng"]
+[gd_scene load_steps=52 format=3 uid="uid://spmyk4w0s5ng"]
 
 [ext_resource type="Script" path="res://Nodes/Characters/MainChar/MainCharBase.gd" id="1_qaomf"]
 [ext_resource type="Script" path="res://Nodes/StateMachine/state_machine.gd" id="2_2ryqt"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bryeuexs1qa8" path="res://assets/Main Characters/Pink Man/Idle (32x32).png" id="5_cw3v4"]
 [ext_resource type="Texture2D" uid="uid://bj0xxk56u4j0v" path="res://assets/Main Characters/Pink Man/Jump (32x32).png" id="6_435n6"]
 [ext_resource type="Texture2D" uid="uid://bnneu1rryh5d1" path="res://assets/Main Characters/Pink Man/Run (32x32).png" id="7_4vmg2"]
+[ext_resource type="Script" path="res://Nodes/Characters/MainChar/States/jumping.gd" id="11_1y2ed"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ihf3o"]
 atlas = ExtResource("2_65pit")
@@ -319,7 +320,7 @@ device = -1
 
 [node name="SpriteAnimations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5opff")
-animation = &"idle"
+animation = &"double_jump"
 speed_scale = 5.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -332,6 +333,10 @@ state_owner = NodePath("../..")
 
 [node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("state_owner")]
 script = ExtResource("4_r6dv3")
+state_owner = NodePath("../..")
+
+[node name="jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("state_owner")]
+script = ExtResource("11_1y2ed")
 state_owner = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
