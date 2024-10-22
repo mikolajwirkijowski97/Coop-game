@@ -1,13 +1,16 @@
 extends State
+class_name MainCharJumpingState
 
-var jump_timer
+var jump_timer = 0
+var jumping_movement_speed = 100
 
 func enter():
 	jump_timer = 0
-	state_owner.sprite_animations.animation = "double_jump"
-	state_owner.sprite_animations.play()
+	player.sprite_animations.animation = "double_jump"
+	player.sprite_animations.play()
 	
-	state_owner.velocity.y = -450
+	player.velocity.y = -450
+	player.velocity.x *= 1.1
 
 func exit():
 	pass
@@ -15,7 +18,9 @@ func exit():
 func physics_update(_delta: float) -> void:
 	pass 
 
-func update(_delta: float):
-	if state_owner.is_on_floor_only() and jump_timer > 0.1:
+func _update(_delta: float):
+	if player.is_on_floor() and jump_timer > 0.1:
 		emit_signal("Transitioned",self, "walking")
+		return
 	jump_timer += _delta
+	player_controller.apply_horizontal_movement(jumping_movement_speed, _delta)
