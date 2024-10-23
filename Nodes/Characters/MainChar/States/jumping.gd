@@ -8,7 +8,7 @@ func enter():
 	jump_timer = 0
 	player.sprite_animations.animation = "double_jump"
 	player.sprite_animations.play()
-	
+
 	player.velocity.y = -450
 	player.velocity.x *= 1.1
 
