@@ -19,8 +19,8 @@ func physics_update(_delta: float) -> void:
 	pass 
 
 func _update(_delta: float):
-	if player.is_on_floor() and jump_timer > 0.1:
-		emit_signal("Transitioned",self, "walking")
+	if player.velocity.y > 0:
+		emit_signal("Transitioned", self, "falling")
 		return
 	jump_timer += _delta
 	player_controller.apply_horizontal_movement(jumping_movement_speed, _delta)

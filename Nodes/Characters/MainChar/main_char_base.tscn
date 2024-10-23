@@ -315,7 +315,7 @@ script = ExtResource("1_qaomf")
 
 [node name="SpriteAnimations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5opff")
-animation = &"double_jump"
+animation = &"fall"
 speed_scale = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

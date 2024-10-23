@@ -13,7 +13,7 @@ func _init(_player: MainCharBase):
 	states['walking'] = MainCharWalkingState.new(player)
 	states['jumping'] = MainCharJumpingState.new(player)
 	states['idle'] = MainCharIdleState.new(player)
-	
+	states['falling'] = MainCharFallingState.new(player)
 	for state in states.values():
 		state.Transitioned.connect(on_child_transition)
 
