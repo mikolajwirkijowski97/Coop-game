@@ -12,7 +12,7 @@ func _process(delta):
 func spawn_players():
 	for i in 2:
 		players.append(player_scene.instantiate())
-		players[i].position = Vector2(i*10, 0)
+		players[i].position = Vector2(i*30, 0)
 		players[i].player_controller.device = i
 		add_child(players[i])
 
