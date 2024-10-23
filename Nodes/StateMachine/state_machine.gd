@@ -1,19 +1,29 @@
 extends Node
 class_name StateMachine
 
-@export var initial_state: State
+var initial_state: State
 var states: Dictionary
 var current_state: State
+var player: MainCharBase
 
-func _ready():
-	for child in get_children():
-		if child is State:
-			states[child.name.to_lower()] = child
-			child.Transitioned.connect(on_child_transition)
+func _init(_player: MainCharBase):
+	player = _player
+	
+	# LIST ALL STATES
+	states['walking'] = MainCharWalkingState.new(player)
+	states['jumping'] = MainCharJumpingState.new(player)
+	states['idle'] = MainCharIdleState.new(player)
+	states['falling'] = MainCharFallingState.new(player)
+	for state in states.values():
+		state.Transitioned.connect(on_child_transition)
+
+	initial_state = states['idle']
 
 	if initial_state:
 		current_state=initial_state
 		current_state.enter()
+	print_debug("Im ready")
+
 	
 func _process(delta: float) -> void:
 	if current_state:

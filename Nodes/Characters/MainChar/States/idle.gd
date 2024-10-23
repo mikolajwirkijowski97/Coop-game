@@ -1,20 +1,25 @@
 extends State
-class_name MainCharIdle
+class_name MainCharIdleState
 
-func choose_animation():
-	if not state_owner.sprite_animations:
+func play_animation():
+	if not player.sprite_animations:
 		return
-
-	state_owner.sprite_animations.animation = "idle"
-	state_owner.sprite_animations.play()
+	player.sprite_animations.animation = "idle"
+	player.sprite_animations.play()
 
 func enter():
-	state_owner.gravity_applies = true
+	player_controller.gravity_applies = true
 	print_debug("Entered idle state")
-	choose_animation()
+	play_animation()
 
-func update(_delta: float):
-	if not state_owner.sprite_animations.is_playing():
-			choose_animation()
-	if MultiplayerInput.get_vector(state_owner.device, "movement_left","movement_right","movement_up","movement_down"):
+func _update(_delta: float):
+	if not player.sprite_animations.is_playing():
+			play_animation()
+	
+	# Transition condition from idle to jump
+	if MultiplayerInput.get_vector(player_controller.device, "movement_left","movement_right","movement_up","movement_down"):
 		emit_signal("Transitioned", self, "walking")
+
+	# Transition condition from idle to jump
+	if MultiplayerInput.is_action_just_pressed(player_controller.device, "jump"):
+		emit_signal("Transitioned", self, "jumping")

@@ -1,16 +1,16 @@
 extends CharacterBody2D
 class_name MainCharBase
 
-@export var device:int
 @onready var sprite_animations: AnimatedSprite2D = $SpriteAnimations
+var state_machine
+var player_controller
 
-var walking_direction = DIRECTIONS.DOWN
-var gravity_applies: bool = true 
-var gravity_strength: int = 1000
+func _init():
+	player_controller = PlayerController.new(self)
+	state_machine = StateMachine.new(self)
+	add_child(state_machine)
+	add_child(player_controller)
+	print_debug("I've been initialized!")
 
-func _process(delta: float):
-	# falling
-	if not is_on_floor() and gravity_applies:
-		velocity.y += gravity_strength*delta
-	move_and_slide()
-	
+func _ready():
+	print_debug("Im ready")
