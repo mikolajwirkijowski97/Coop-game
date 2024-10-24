@@ -6,7 +6,7 @@ var device: int
 var has_device: bool = false
 
 var player: MainCharBase
-var direction = DIRECTIONS.DOWN
+var direction = DIRECTIONS.LEFT
 var gravity_applies: bool = true 
 var gravity_strength: int = 1000
 
@@ -33,8 +33,10 @@ func handle_sprite_flipping():
 func handle_direction_setting():
 	if player.velocity.x > 0:
 		direction = DIRECTIONS.RIGHT
-	else:
+	if player.velocity.x < 0:
 		direction = DIRECTIONS.LEFT
+	else:
+		return
 	
 func apply_falling(_delta:float):
 	if not player.is_on_floor() and gravity_applies:
